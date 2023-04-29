@@ -1,13 +1,15 @@
-import React, {useState, useEffect} from "react";
+import React, {useContext} from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import Badge from 'react-bootstrap/Badge'
 import Button from 'react-bootstrap/Button';
 
 import axios from "axios";
+import { CartContext } from "./ProductsHome";
 
-function CartDropdown({cartItems, total}) {
-  console.log(cartItems)
+function CartDropdown() {
   
+  const {cartItems, setCartItems, total, setTotal} = useContext(CartContext)
+
   const buy = async () =>{
 
     try {
@@ -23,6 +25,8 @@ function CartDropdown({cartItems, total}) {
         }
         )
     alert(await resp.data.msg)
+    setCartItems([])
+    setTotal(0)
     }
     catch (e){
         console.log(e.response.data.msg)

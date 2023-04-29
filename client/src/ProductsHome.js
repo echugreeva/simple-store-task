@@ -1,9 +1,10 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, createContext} from 'react'
 import CartDropdown from './CartDropdown'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card'
+export const CartContext = createContext();
 
 const ProductsHome = () => {
     const [products, setProducts] = useState('')
@@ -50,8 +51,9 @@ const ProductsHome = () => {
             } else {
 
                 return (
+                    <CartContext.Provider value={{cartItems, setCartItems,total, setTotal}}>
                     <Container className="align-items-end text-right">  
-                    <CartDropdown cartItems={cartItems} action={`Pay`} total={total}  />
+                    <CartDropdown action={`Pay`} />
                     <Row >
                         {
                             products.map(item=>{
@@ -83,6 +85,7 @@ const ProductsHome = () => {
                         
                     
                     </Container>
+                    </CartContext.Provider>
                 )
             }
         }
